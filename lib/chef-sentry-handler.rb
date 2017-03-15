@@ -14,8 +14,8 @@ class ChefSentryHandler < Chef::Handler
 
     Raven.configure do |config|
       config.server = @sentry_dsn
-      config.tags = { environment: run_status.node.chef_environment }
       config.ssl_verification = true
+      config.current_environment = run_status.node.chef_environment
     end
 
     Raven.capture_exception(run_status.exception)
